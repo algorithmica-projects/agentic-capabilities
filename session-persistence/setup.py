@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="error-logger",
+    name="session-persistence",
     version="0.1.0",
     packages=find_packages(),
     install_requires=[
@@ -9,6 +9,6 @@ setup(
         "pydantic-ai>=1.79.0",
     ],
     author="Algorithmica",
-    description="Error logging capability for Pydantic AI agents",
+    description="Persistence capability for Pydantic AI agents",
     python_requires=">=3.9",
 )
