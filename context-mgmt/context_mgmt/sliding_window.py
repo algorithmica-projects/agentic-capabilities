@@ -2,13 +2,12 @@ from typing import Any
 from pydantic_ai import ModelMessage, RunContext, ModelRequestContext
 from pydantic_ai.capabilities import AbstractCapability
 from dataclasses import dataclass
-from utils import _find_safe_cutoff, _prepend_first_user_message
+from utils import _find_safe_cutoff
 
 @dataclass
 class SlidingWindow(AbstractCapability[Any]):
     max_messages: int = 100
     keep_messages: int = 40
-    preserve_first_user_message: bool = True
 
     async def before_model_request(
         self,
@@ -21,13 +20,10 @@ class SlidingWindow(AbstractCapability[Any]):
         print(len(messages))
         if len(messages) <= self.max_messages:
             return request_context
-        print(len(messages))
+
         cutoff = _find_safe_cutoff(messages, self.keep_messages)
 
         if cutoff > 0:
-            trimmed = messages[cutoff:]
-            if self.preserve_first_user_message:
-                trimmed = _prepend_first_user_message(messages, cutoff, trimmed)
-            request_context.messages = trimmed
+            request_context.messages = messages[cutoff:]
 
         return request_context

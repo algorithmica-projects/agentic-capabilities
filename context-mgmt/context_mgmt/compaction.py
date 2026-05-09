@@ -8,7 +8,8 @@ from utils import _find_safe_cutoff, _find_first_user_message, _format_messages,
 class Compaction(AbstractCapability[Any]):
     max_messages: int = 100
     keep_messages: int = 40
-    preserve_first_user_message: bool = True
+    incremental: bool = True
+
     summary_prompt = """\
         You are a context summarization assistant.  Extract the most important \
         information from the conversation below.
@@ -40,7 +41,7 @@ class Compaction(AbstractCapability[Any]):
             prompt = f'{prompt}\n\n<previous_summary>\n{previous_summary}\n</previous_summary>'
 
         agent: Agent[None, str] = Agent(
-            self.model,
+            'ollama:qwen3.5:9b',
             instructions='You are a context summarization assistant. Extract the most important information from conversations.',
         )
         result = await agent.run(prompt)
@@ -54,6 +55,7 @@ class Compaction(AbstractCapability[Any]):
         """Trim the message list if it exceeds the configured threshold."""
 
         messages: list[ModelMessage] = list(request_context.messages)
+        print(len(messages))
         if len(messages) <= self.max_messages:
             return request_context
 
@@ -72,13 +74,5 @@ class Compaction(AbstractCapability[Any]):
         summary_part = SystemPromptPart(content=f'{_SUMMARY_PREFIX}{summary}')
         summary_message = ModelRequest(parts=[*system_parts, summary_part])
 
-        first_user: list[ModelMessage] = []
-        if self.preserve_first_user_message:
-            first_user_msg = _find_first_user_message(messages)
-            if first_user_msg is not None:
-                idx = messages.index(first_user_msg)
-                if idx < cutoff and first_user_msg not in preserved:
-                    first_user = [first_user_msg]
-
-        request_context.messages = [summary_message, *first_user, *preserved]
+        request_context.messages = [summary_message, *preserved]
         return request_context

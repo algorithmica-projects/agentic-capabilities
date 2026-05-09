@@ -63,32 +63,6 @@ def _find_safe_cutoff(messages: list[ModelMessage], keep: int) -> int:
             return idx
     return 0 
 
-def _find_first_user_message(messages: list[ModelMessage]) -> ModelRequest | None:
-    """Return the first ``ModelRequest`` that contains a ``UserPromptPart``, or ``None``."""
-    for msg in messages:
-        if isinstance(msg, ModelRequest) and any(isinstance(p, UserPromptPart) for p in msg.parts):
-            return msg
-    return None
-
-def _prepend_first_user_message(
-    original: list[ModelMessage],
-    cutoff: int,
-    trimmed: list[ModelMessage],
-) -> list[ModelMessage]:
-    """Ensure the first user message from *original* appears in *trimmed*.
-
-    If the first ``ModelRequest`` containing a ``UserPromptPart`` in *original*
-    was discarded (its index is before *cutoff*) and is not already in *trimmed*,
-    prepend it.
-    """
-    first = _find_first_user_message(original)
-    if first is None:
-        return trimmed
-    idx = original.index(first)
-    if idx < cutoff and first not in trimmed:
-        return [first, *trimmed]
-    return trimmed
-
 def _user_prompt_text(part: UserPromptPart) -> str:
     """Extract text content from a user prompt part."""
     if isinstance(part.content, str):
