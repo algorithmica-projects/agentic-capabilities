@@ -5,7 +5,7 @@ setup(
     version="0.1.0",
     packages=find_packages(),
     install_requires=[
-        "pydantic>=2.0.0",
+        "pydantic>=2.13.4",
         "pydantic-ai>=1.93.0",
     ],
     author="Algorithmica",
