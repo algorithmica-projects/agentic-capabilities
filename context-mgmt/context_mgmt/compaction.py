@@ -2,7 +2,7 @@ from typing import Any
 from pydantic_ai import ModelMessage, ModelRequest, RunContext, ModelRequestContext, SystemPromptPart
 from pydantic_ai.capabilities import AbstractCapability
 from dataclasses import dataclass
-from utils import _find_safe_cutoff, _find_first_user_message, _format_messages, _extract_system_prompts, _extract_previous_summary, _SUMMARY_PREFIX
+from utils import _find_safe_cutoff, _format_messages, _extract_system_prompts, _extract_previous_summary, _SUMMARY_PREFIX
 
 @dataclass
 class Compaction(AbstractCapability[Any]):
@@ -11,9 +11,6 @@ class Compaction(AbstractCapability[Any]):
     incremental: bool = True
 
     summary_prompt = """\
-        You are a context summarization assistant.  Extract the most important \
-        information from the conversation below.
-
         The conversation history will be replaced with your summary, so include all \
         facts, decisions, and outcomes that are necessary for continuing the task.  \
         Do NOT repeat completed actions — focus on results and open questions.
