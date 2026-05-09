@@ -3,9 +3,9 @@ from dotenv import load_dotenv
 from pydantic_ai import Agent
 load_dotenv(override=True)
 import logfire
-from pii_redaction_guard_rail import PIIRedactionGuardrail
-from prompt_injection_guard_rail import PromptInjectionGuardrail
-from secret_leakage_guard_rail import SecretLeakageGuardrail
+from guard_rails.pii_redaction_guard_rail import PIIRedactionGuardrail
+from guard_rails.prompt_injection_guard_rail import PromptInjectionGuardrail
+from guard_rails.secret_leakage_guard_rail import SecretLeakageGuardrail
 
 logfire.configure()
 logfire.instrument_pydantic_ai()
