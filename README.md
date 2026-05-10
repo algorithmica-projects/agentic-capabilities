@@ -1,3 +1,5 @@
+# Installation
+
 pip install -U "git+https://github.com/algorithmica-projects/agentic-capabilities#subdirectory=error-logger"
 
 pip install -U "git+https://github.com/algorithmica-projects/agentic-capabilities#subdirectory=session-persistence"
