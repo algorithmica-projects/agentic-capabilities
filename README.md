@@ -7,3 +7,5 @@ pip install -U "git+https://github.com/algorithmica-projects/agentic-capabilitie
 pip install -U "git+https://github.com/algorithmica-projects/agentic-capabilities#subdirectory=ui-event-streaming"
 
 pip install -U "git+https://github.com/algorithmica-projects/agentic-capabilities#subdirectory=guard-rails"
+
+pip install -U "git+https://github.com/algorithmica-projects/agentic-capabilities#subdirectory=context-mgmt"
