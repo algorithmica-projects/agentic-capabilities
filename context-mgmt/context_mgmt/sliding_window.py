@@ -2,7 +2,7 @@ from typing import Any
 from pydantic_ai import ModelMessage, RunContext, ModelRequestContext
 from pydantic_ai.capabilities import AbstractCapability
 from dataclasses import dataclass
-from utils import _find_safe_cutoff
+from context_mgmt.utils import _find_safe_cutoff
 
 @dataclass
 class SlidingWindow(AbstractCapability[Any]):

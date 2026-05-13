@@ -2,7 +2,7 @@ from typing import Any
 from pydantic_ai import ModelMessage, ModelRequest, RunContext, ModelRequestContext, SystemPromptPart
 from pydantic_ai.capabilities import AbstractCapability
 from dataclasses import dataclass
-from utils import _find_safe_cutoff, _format_messages, _extract_system_prompts, _extract_previous_summary, _SUMMARY_PREFIX
+from context_mgmt.utils import _find_safe_cutoff, _format_messages, _extract_system_prompts, _extract_previous_summary, _SUMMARY_PREFIX
 
 @dataclass
 class Compaction(AbstractCapability[Any]):
