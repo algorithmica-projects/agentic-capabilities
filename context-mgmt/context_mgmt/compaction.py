@@ -52,7 +52,7 @@ class Compaction(AbstractCapability[Any]):
         """Trim the message list if it exceeds the configured threshold."""
 
         messages: list[ModelMessage] = list(request_context.messages)
-        print(len(messages))
+        #print(len(messages))
         if len(messages) <= self.max_messages:
             return request_context
 
